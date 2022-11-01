@@ -1,4 +1,6 @@
-﻿using ChallengeAluraBackend.Data;
+﻿using AutoMapper;
+using ChallengeAluraBackend.Data;
+using ChallengeAluraBackend.Data.Dtos;
 using ChallengeAluraBackend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +12,18 @@ namespace ChallengeAluraBackend.Controllers
     public class VideosController : ControllerBase
     {
         private VideoContext _videoContext;
+        private IMapper _mapper;
 
-        public VideosController(VideoContext videoContext)
+        public VideosController(VideoContext videoContext, IMapper mapper)
         {
             _videoContext = videoContext;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public IActionResult AdicionaVideo([FromBody] Video video)
+        public IActionResult AdicionaVideo([FromBody] CreateVideoDto videoDto)
         {
+            Video video = _mapper.Map<Video>(videoDto);
             _videoContext.Add(video);
             _videoContext.SaveChanges();
             return CreatedAtAction(nameof(RecuperaVideoPorId), new { Id = video.Id }, video);
@@ -38,17 +43,19 @@ namespace ChallengeAluraBackend.Controllers
             {
                 return NotFound();
             }
-            return Ok(video);
+            ReadVideoDto videoDto = _mapper.Map<ReadVideoDto>(video);
+            return Ok(videoDto);
         }
 
         [HttpPut("{id}")]
-        public IActionResult AtualizaVideo(int id, [FromBody] Video videoNovo)
+        public IActionResult AtualizaVideo(int id, [FromBody] UpdateVideoDto videoDto)
         {
             Video video = _videoContext.Videos.FirstOrDefault(video => video.Id == id);
             if (video == null)
             {
                 return NotFound();
             }
+            _mapper.Map(videoDto, video);
             _videoContext.SaveChanges();
             return NoContent();
         }

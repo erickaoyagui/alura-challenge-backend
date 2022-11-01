@@ -13,6 +13,9 @@ builder.Services.AddSwaggerGen();
 // Configurando Conexão com Banco de Dados MySql
 builder.Services.AddDbContext<VideoContext>(opts => opts.UseMySql(builder.Configuration.GetConnectionString("VideoConnection"), new MySqlServerVersion(new Version(8, 0))));
 
+// Configurando AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
