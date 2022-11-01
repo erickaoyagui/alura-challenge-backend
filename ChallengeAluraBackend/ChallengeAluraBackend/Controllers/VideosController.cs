@@ -1,4 +1,5 @@
-﻿using ChallengeAluraBackend.Models;
+﻿using ChallengeAluraBackend.Data;
+using ChallengeAluraBackend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,17 +9,23 @@ namespace ChallengeAluraBackend.Controllers
     [ApiController]
     public class VideosController : ControllerBase
     {
-        private static List<Video> videos = new List<Video>();
+        private VideoContext _videoContext;
+
+        public VideosController(VideoContext videoContext)
+        {
+            _videoContext = videoContext;
+        }
+
         [HttpGet]
         public IActionResult RecuperaVideo()
         {
-            return Ok(videos);
+            return Ok();
         }
 
         [HttpPost]
         public IActionResult AdicionaVideo ([FromBody]Video video)
         {
-            videos.Add(video);
+            //videos.Add(video);
             return Ok(video);
         }
 

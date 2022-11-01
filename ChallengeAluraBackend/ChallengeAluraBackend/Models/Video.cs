@@ -1,11 +1,18 @@
-﻿namespace ChallengeAluraBackend.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChallengeAluraBackend.Models
 {
     public class Video
     {
-        public int id { get; set; }
-        public string titulo { get; set; }
-        public string descricao { get; set; }
-        public string url { get; set; }
-        public int categoria { get; set; }
+        [Key]
+        [Required]
+        public int Id { get; set; }
+        [Required(ErrorMessage = "O campo título é obrigatório")]
+        public string Titulo { get; set; }
+        [Required(ErrorMessage = "O campo descrição é obrigatório")]
+        public string Descricao { get; set; }
+
+        [Required(ErrorMessage = "O campo Url é obrigatório")]
+        public string Url { get; set; }
     }
 }
