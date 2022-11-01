@@ -16,18 +16,54 @@ namespace ChallengeAluraBackend.Controllers
             _videoContext = videoContext;
         }
 
-        [HttpGet]
-        public IActionResult RecuperaVideo()
+        [HttpPost]
+        public IActionResult AdicionaVideo([FromBody] Video video)
         {
-            return Ok();
+            _videoContext.Add(video);
+            _videoContext.SaveChanges();
+            return CreatedAtAction(nameof(RecuperaVideoPorId), new { Id = video.Id }, video);
         }
 
-        [HttpPost]
-        public IActionResult AdicionaVideo ([FromBody]Video video)
+        [HttpGet]
+        public IActionResult RecuperaVideos()
         {
-            //videos.Add(video);
+            return Ok(_videoContext.Videos);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult RecuperaVideoPorId(int id)
+        {
+            Video video = _videoContext.Videos.FirstOrDefault(video => video.Id == id);
+            if (video == null)
+            {
+                return NotFound();
+            }
             return Ok(video);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult AtualizaVideo(int id, [FromBody] Video videoNovo)
+        {
+            Video video = _videoContext.Videos.FirstOrDefault(video => video.Id == id);
+            if (video == null)
+            {
+                return NotFound();
+            }
+            _videoContext.SaveChanges();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult RemoveVideo (int id)
+        {
+            Video video = _videoContext.Videos.FirstOrDefault(video => video.Id == id);
+            if (video == null)
+            {
+                return NotFound();
+            }
+            _videoContext.Videos.Remove(video);
+            _videoContext.SaveChanges();
+            return NoContent();
+        }
     }
 }
