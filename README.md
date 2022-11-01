@@ -1,14 +1,13 @@
 # Alura Challenge Backend
 
-Rápida descrição do objetivo de fazer esse projeto
-
-| :placard: Vitrine.Dev |     |
-| -------------  | --- |
-| :sparkles: Nome        | **Challenge Alura Backend**
-| :label: Tecnologias | c# 
-| :rocket: URL         | https://url-deploy.com.br
-| :fire: Desafio     | https://url-do-desafio.com.br
+Repositório para o projeto referente ao Alura Challengekend 5ª edição
 
 ## Detalhes do projeto
 
-Semana 1 concluída
+### 1ª semana
+Trello: https://trello.com/b/ODJ0emSv/alura-challenge-backend
+- Criação do Banco de Dados em MySql
+- Conexão com o Banco de Dados
+- Criação dos endpoints CRUD
+- Validação de campos
+- Realização de testes
