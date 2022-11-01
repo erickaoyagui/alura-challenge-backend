@@ -11,7 +11,7 @@ namespace ChallengeAluraBackend.Profiles
             // <Source, Destination>
             CreateMap<CreateVideoDto, Video>();
             CreateMap<Video, ReadVideoDto>();
-            CreateMap<Video, UpdateVideoDto>();
+            CreateMap<UpdateVideoDto, Video>();
         }
     }
 }
